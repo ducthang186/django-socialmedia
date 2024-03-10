@@ -1,0 +1,29 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content-area">
+    <div class="friend-card">        
+        <span class="fs-5">{{ num_friends }} người bạn</span>
+        <div class="accordion-collapse collapse show friend-tab-detail" id="listFriend" data-bs-parent="#friend-tab">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+              {% for friend in friends %}                  
+                <a href="{% url 'profiles:profile' friend.id   %}" class="friend-list-item d-flex align-items-center">
+                  {% for profile in profiles %}               
+                        {% if friend.id == profile.user.id %}
+                            {% if profile.profile_pic %}
+                                    <img src="{{ profile.profile_pic.url }}" style="width: 50px;" class="rounded-pill" alt="">
+                                {% else %}
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDJaEoQJ0PLbNOn_xHRIw7mcyuIOj0_hVZlA&usqp=CAU" style="width: 50px;" style="width: 40px; height:40px" alt="">
+                                {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                  <div class="name">{{ friend.username }}</div>                  
+                </a>
+              {% endfor %}                
+            </div>
+          </div>
+       
+    </div>
+
+{% endblock %}
